@@ -63,7 +63,7 @@ export function HomeContent() {
         <div className="max-w-(--width-container-max) mx-auto px-(--spacing-content) w-full py-32">
           <p className="font-sans text-s tracking-[0.16em] text-neutral-600 uppercase">Recio</p>
           <h1 className="mt-4 max-w-3xl font-display text-4xl tracking-tight text-foreground sm:text-6xl">
-            Esenciales masculinos de lujo con precision minimalista.
+            Esenciales masculinos de lujo con precision y elegancia.
           </h1>
           <p className="mt-6 max-w-2xl font-sans text-base text-neutral-600">
             Descubre piezas curadas para un guardarropa contemporaneo: materiales nobles, cortes
