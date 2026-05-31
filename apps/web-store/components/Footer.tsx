@@ -68,7 +68,7 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  href="/envios"
+                  href="/envios-y-devoluciones"
                   className="font-sans text-xs uppercase tracking-widest text-neutral-500 hover:text-foreground transition-colors"
                 >
                   Envíos y Devoluciones
@@ -76,7 +76,7 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  href="/preguntas"
+                  href="/preguntas-frecuentes"
                   className="font-sans text-xs uppercase tracking-widest text-neutral-500 hover:text-foreground transition-colors"
                 >
                   Preguntas Frecuentes
@@ -93,7 +93,7 @@ export function Footer() {
             <ul className="flex flex-col gap-4">
               <li>
                 <Link
-                  href="/terminos"
+                  href="/terminos-de-servicio"
                   className="font-sans text-xs uppercase tracking-widest text-neutral-500 hover:text-foreground transition-colors"
                 >
                   Términos de Servicio
@@ -101,7 +101,7 @@ export function Footer() {
               </li>
               <li>
                 <Link
-                  href="/privacidad"
+                  href="/politica-de-privacidad"
                   className="font-sans text-xs uppercase tracking-widest text-neutral-500 hover:text-foreground transition-colors"
                 >
                   Política de Privacidad
