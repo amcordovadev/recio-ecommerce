@@ -3,7 +3,7 @@
 
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
-import { ProductCard } from '@/components/ProductCard';
+import { ProductCard } from '@/components/storefront/ProductCard';
 import { useProducts } from '@/hooks/use-products';
 import type { ProductWithRelations } from '@/mocks/products';
 

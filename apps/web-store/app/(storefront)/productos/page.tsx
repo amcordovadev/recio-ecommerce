@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { ProductsContent } from '@/components/products/ProductsContent';
+import { ProductsContent } from '@/components/storefront/products/ProductsContent';
 
 export const metadata: Metadata = {
   title: 'Productos',

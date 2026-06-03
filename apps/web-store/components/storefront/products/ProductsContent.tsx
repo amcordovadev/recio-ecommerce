@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { ProductCard } from '@/components/ProductCard';
+import { ProductCard } from '@/components/storefront/ProductCard';
 import { useProducts } from '@/hooks/use-products';
 import { SlidersHorizontal, ChevronDown } from 'lucide-react';
 import type { ProductWithRelations } from '@/mocks/products';
