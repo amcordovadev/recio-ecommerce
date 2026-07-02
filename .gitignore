@@ -31,6 +31,7 @@ next-env.d.ts
 # --- PRISMA & DATABASE ---
 # Ignoramos el cliente generado si lo sacaste de node_modules
 packages/database/generated/
+apps/web-store/generated/
 # Si usas SQLite para pruebas locales:
 *.db
 *.db-journal

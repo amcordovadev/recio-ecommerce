@@ -136,15 +136,12 @@ model Order {
 
 // 7. DIRECCIÓN DE ENVÍO: Información de entrega de la orden.
 model OrderAddress {
-  id               Int     @id @default(autoincrement())
-  addressLine      String  @map("address_line")
-  department       String  @db.VarChar(60)
-  province         String  @db.VarChar(60)
-  district         String  @db.VarChar(60)
-  reference        String? @db.VarChar(150)
-  contactFirstName String  @map("contact_first_name") @db.VarChar(100)
-  contactLastName  String  @map("contact_last_name") @db.VarChar(100)
-  contactPhone     String  @map("contact_phone") @db.VarChar(20)
+  id          Int     @id @default(autoincrement())
+  addressLine String  @map("address_line")
+  department  String  @db.VarChar(60)
+  province    String  @db.VarChar(60)
+  district    String  @db.VarChar(60)
+  reference   String? @db.VarChar(150)
 
   orderId Int   @unique @map("order_id")
   order   Order @relation(fields: [orderId], references: [id], onDelete: Cascade)
