@@ -1,5 +1,5 @@
-// apps/web-store/components/storefront/ProductCard.tsx
 import Image from 'next/image';
+import Link from 'next/link';
 import { ProductCardDto } from '@/types';
 
 type ProductCardProps = {
@@ -16,10 +16,7 @@ function formatCurrency(value: number): string {
 }
 
 export function ProductCard({ product, priority = false }: ProductCardProps) {
-  // Con el nuevo contrato simplificado, la URL viene directa y limpia
   const imageSrc = product.imageUrl;
-
-  // Los precios ya vienen formateados como "number" desde el servidor de Next.js
   const currentPrice = product.price;
   const originalPrice = product.originalPrice;
 
@@ -29,8 +26,10 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
       : null;
 
   return (
-    <article className="group flex flex-col bg-background rounded-none border border-border overflow-hidden">
-      {/* Contenedor de Imagen con altura definida por aspect-ratio */}
+    <Link
+      href={`/productos/${product.id}`}
+      className="group flex flex-col bg-background rounded-none border border-border overflow-hidden no-underline"
+    >
       <div className="relative w-full aspect-portrait overflow-hidden bg-neutral-100">
         {imageSrc ? (
           <Image
@@ -48,7 +47,6 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
           </div>
         )}
 
-        {/* Badges */}
         <div className="absolute top-2 left-2 flex flex-col gap-1">
           {product.isNew && (
             <span className="bg-primary px-2 py-1 font-sans text-[10px] tracking-widest text-primary-foreground uppercase">
@@ -63,7 +61,6 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
         </div>
       </div>
 
-      {/* Info */}
       <div className="flex flex-col gap-1 p-4">
         <h3 className="font-sans text-xs uppercase tracking-wider text-neutral-900 line-clamp-1">
           {product.name}
@@ -79,6 +76,6 @@ export function ProductCard({ product, priority = false }: ProductCardProps) {
           )}
         </div>
       </div>
-    </article>
+    </Link>
   );
 }
