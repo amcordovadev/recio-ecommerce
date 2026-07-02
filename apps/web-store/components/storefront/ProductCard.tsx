@@ -1,8 +1,9 @@
+// apps/web-store/components/storefront/ProductCard.tsx
 import Image from 'next/image';
-import type { ProductWithRelations } from '@/mocks/products';
+import { ProductCardDto } from '@/types';
 
 type ProductCardProps = {
-  product: ProductWithRelations;
+  product: ProductCardDto;
   priority?: boolean;
 };
 
@@ -15,14 +16,12 @@ function formatCurrency(value: number): string {
 }
 
 export function ProductCard({ product, priority = false }: ProductCardProps) {
-  const mainImage = product.images.find((image) => image.isMain);
-  const fallbackImage = product.images[0];
-  const imageSrc = mainImage?.url ?? fallbackImage?.url;
+  // Con el nuevo contrato simplificado, la URL viene directa y limpia
+  const imageSrc = product.imageUrl;
 
-  const currentPrice = Number.parseFloat(product.price.toString());
-  const originalPrice = product.originalPrice
-    ? Number.parseFloat(product.originalPrice.toString())
-    : null;
+  // Los precios ya vienen formateados como "number" desde el servidor de Next.js
+  const currentPrice = product.price;
+  const originalPrice = product.originalPrice;
 
   const discountPercentage =
     product.isOnSale && originalPrice && originalPrice > currentPrice

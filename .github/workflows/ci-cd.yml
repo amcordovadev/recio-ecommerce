@@ -1,0 +1,39 @@
+name: Recio-Ecommerce Fullstack CI
+
+on:
+  push:
+    branches: ['main', 'develop']
+  pull_request:
+    branches: ['main', 'develop']
+
+jobs:
+  quality-gate:
+    name: Integración Continuo (CI)
+    runs-on: ubuntu-latest
+
+    defaults:
+      run:
+        working-directory: apps/web-store
+
+    steps:
+      - name: 1. Clonar el repositorio
+        uses: actions/checkout@v4
+
+      - name: 2. Configurar Node.js (Versión Actual 2026)
+        uses: actions/setup-node@v4
+        with:
+          node-version: 24
+
+      - name: 3. Instalar dependencias del proyecto
+        run: npm install
+
+      - name: 4. Validar Esquema y Generar Cliente de Prisma
+        run: npx prisma generate
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+
+      - name: 5. Compilar Aplicación (Build de Validación)
+        run: npm run build
+        env:
+          DATABASE_URL: ${{ secrets.DATABASE_URL }}
+          NEXTAUTH_SECRET: ${{ secrets.NEXTAUTH_SECRET }}

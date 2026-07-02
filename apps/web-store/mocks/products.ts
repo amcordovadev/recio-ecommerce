@@ -1,4 +1,4 @@
-import type { Product, ProductImage, ProductVariant } from '@repo/database';
+import type { Product, ProductImage, ProductVariant } from '@prisma/client';
 
 export type ProductWithRelations = Product & {
   variants: ProductVariant[];
@@ -6,9 +6,6 @@ export type ProductWithRelations = Product & {
 };
 
 const now = new Date();
-const ProductStatus = {
-  ACTIVE: 'ACTIVE' as Product['status'],
-} as const;
 
 type PriceValue = Product['price'];
 
@@ -21,7 +18,7 @@ export const MOCK_PRODUCTS: ProductWithRelations[] = [
     description:
       'Camiseta premium de algodon organico con estructura limpia y caida recta para un look sobrio de lujo diario.',
     slug: 'camiseta-recio-minimalist',
-    status: ProductStatus.ACTIVE,
+    isVisible: true,
     isNew: true,
     isOnSale: false,
     price: decimal('129.90'),
@@ -66,16 +63,12 @@ export const MOCK_PRODUCTS: ProductWithRelations[] = [
         id: 201,
         url: 'https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?auto=format&fit=crop&w=1400&q=80',
         altText: 'Camiseta minimalista negra Recio',
-        variantColor: 'Negro',
-        isMain: true,
         productId: 1,
       },
       {
         id: 202,
         url: 'https://images.unsplash.com/photo-1583743814966-8936f37f4b84?auto=format&fit=crop&w=1400&q=80',
         altText: 'Camiseta minimalista blanca Recio',
-        variantColor: 'Blanco',
-        isMain: false,
         productId: 1,
       },
     ],
@@ -86,7 +79,7 @@ export const MOCK_PRODUCTS: ProductWithRelations[] = [
     description:
       'Polo de punto fino con cuello arquitectonico y tacto sedoso, pensado para elevar un guardarropa contemporaneo.',
     slug: 'polo-estructurado-signature',
-    status: ProductStatus.ACTIVE,
+    isVisible: true,
     isNew: false,
     isOnSale: true,
     price: decimal('179.90'),
@@ -131,16 +124,12 @@ export const MOCK_PRODUCTS: ProductWithRelations[] = [
         id: 203,
         url: 'https://images.unsplash.com/photo-1527719327859-c6ce80353573?auto=format&fit=crop&w=1400&q=80',
         altText: 'Polo azul marino estructurado',
-        variantColor: 'Azul Marino',
-        isMain: true,
         productId: 2,
       },
       {
         id: 204,
         url: 'https://images.unsplash.com/photo-1617137968427-85924c800a22?auto=format&fit=crop&w=1400&q=80',
         altText: 'Polo crema de lujo',
-        variantColor: 'Crema',
-        isMain: false,
         productId: 2,
       },
     ],
@@ -151,7 +140,7 @@ export const MOCK_PRODUCTS: ProductWithRelations[] = [
     description:
       'Camisa oxford de alto gramaje con acabado mate y patron impecable, ideal para un estilo refinado sin esfuerzo.',
     slug: 'camisa-oxford-atelier',
-    status: ProductStatus.ACTIVE,
+    isVisible: true,
     isNew: false,
     isOnSale: false,
     price: decimal('249.90'),
@@ -196,16 +185,12 @@ export const MOCK_PRODUCTS: ProductWithRelations[] = [
         id: 205,
         url: 'https://images.unsplash.com/photo-1603252109303-2751441dd157?auto=format&fit=crop&w=1400&q=80',
         altText: 'Camisa oxford blanca de lujo',
-        variantColor: 'Blanco',
-        isMain: true,
         productId: 3,
       },
       {
         id: 206,
         url: 'https://images.unsplash.com/photo-1598033129183-c4f50c736f10?auto=format&fit=crop&w=1400&q=80',
         altText: 'Camisa oxford celeste premium',
-        variantColor: 'Celeste',
-        isMain: false,
         productId: 3,
       },
     ],
@@ -216,7 +201,7 @@ export const MOCK_PRODUCTS: ProductWithRelations[] = [
     description:
       'Blazer de lana ligera con hombro limpio y silueta recta, creado para una presencia elegante y contemporanea.',
     slug: 'blazer-urbano-recio',
-    status: ProductStatus.ACTIVE,
+    isVisible: true,
     isNew: true,
     isOnSale: true,
     price: decimal('459.90'),
@@ -261,16 +246,12 @@ export const MOCK_PRODUCTS: ProductWithRelations[] = [
         id: 207,
         url: 'https://images.unsplash.com/photo-1593030761757-71fae45fa0e7?auto=format&fit=crop&w=1400&q=80',
         altText: 'Blazer grafito de corte moderno',
-        variantColor: 'Grafito',
-        isMain: true,
         productId: 4,
       },
       {
         id: 208,
         url: 'https://images.unsplash.com/photo-1552374196-c4e7ffc6e126?auto=format&fit=crop&w=1400&q=80',
         altText: 'Blazer negro minimalista para hombre',
-        variantColor: 'Negro',
-        isMain: false,
         productId: 4,
       },
     ],
@@ -281,7 +262,7 @@ export const MOCK_PRODUCTS: ProductWithRelations[] = [
     description:
       'Pantalon de sastreria en lana fria con pinza discreta y drapeado limpio para una estetica silenciosamente lujosa.',
     slug: 'pantalon-sastrero-corte-recto',
-    status: ProductStatus.ACTIVE,
+    isVisible: true,
     isNew: false,
     isOnSale: false,
     price: decimal('329.90'),
@@ -326,16 +307,12 @@ export const MOCK_PRODUCTS: ProductWithRelations[] = [
         id: 209,
         url: 'https://images.unsplash.com/photo-1473966968600-fa801b869a1a?auto=format&fit=crop&w=1400&q=80',
         altText: 'Pantalon sastrero color antracita',
-        variantColor: 'Antracita',
-        isMain: true,
         productId: 5,
       },
       {
         id: 210,
         url: 'https://images.unsplash.com/photo-1506629905607-d9fb4a4e66e1?auto=format&fit=crop&w=1400&q=80',
         altText: 'Pantalon sastrero beige premium',
-        variantColor: 'Beige',
-        isMain: false,
         productId: 5,
       },
     ],
@@ -346,7 +323,7 @@ export const MOCK_PRODUCTS: ProductWithRelations[] = [
     description:
       'Chino de algodon pima con elasticidad sutil y terminacion impecable para un vestuario elegante de todos los dias.',
     slug: 'chino-premium-essential',
-    status: ProductStatus.ACTIVE,
+    isVisible: true,
     isNew: false,
     isOnSale: true,
     price: decimal('219.90'),
@@ -391,16 +368,12 @@ export const MOCK_PRODUCTS: ProductWithRelations[] = [
         id: 211,
         url: 'https://images.unsplash.com/photo-1472417583565-62e7bdeda490?auto=format&fit=crop&w=1400&q=80',
         altText: 'Chino oliva de estilo minimalista',
-        variantColor: 'Oliva',
-        isMain: true,
         productId: 6,
       },
       {
         id: 212,
         url: 'https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&w=1400&q=80',
         altText: 'Chino color piedra en look urbano',
-        variantColor: 'Piedra',
-        isMain: false,
         productId: 6,
       },
     ],
@@ -411,7 +384,7 @@ export const MOCK_PRODUCTS: ProductWithRelations[] = [
     description:
       'Abrigo largo en lana merino con lineas puras y construccion premium para una presencia sobria en clima frio.',
     slug: 'abrigo-lana-merino-noir',
-    status: ProductStatus.ACTIVE,
+    isVisible: true,
     isNew: true,
     isOnSale: false,
     price: decimal('799.90'),
@@ -456,16 +429,12 @@ export const MOCK_PRODUCTS: ProductWithRelations[] = [
         id: 213,
         url: 'https://images.unsplash.com/photo-1548883354-7622d03aca27?auto=format&fit=crop&w=1400&q=80',
         altText: 'Abrigo largo negro de lana merino',
-        variantColor: 'Negro',
-        isMain: true,
         productId: 7,
       },
       {
         id: 214,
         url: 'https://images.unsplash.com/photo-1521223890158-f9f7c3d5d504?auto=format&fit=crop&w=1400&q=80',
         altText: 'Abrigo camel premium para hombre',
-        variantColor: 'Camel',
-        isMain: false,
         productId: 7,
       },
     ],
@@ -476,7 +445,7 @@ export const MOCK_PRODUCTS: ProductWithRelations[] = [
     description:
       'Sobrecamisa en mezcla de lana tecnica con acabado seco y silueta relajada, ideal para capas sofisticadas.',
     slug: 'sobrecamisa-tech-wool',
-    status: ProductStatus.ACTIVE,
+    isVisible: true,
     isNew: false,
     isOnSale: false,
     price: decimal('379.90'),
@@ -521,16 +490,12 @@ export const MOCK_PRODUCTS: ProductWithRelations[] = [
         id: 215,
         url: 'https://images.unsplash.com/photo-1602810318383-e386cc2a3ccf?auto=format&fit=crop&w=1400&q=80',
         altText: 'Sobrecamisa color musgo en lana tecnica',
-        variantColor: 'Musgo',
-        isMain: true,
         productId: 8,
       },
       {
         id: 216,
         url: 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?auto=format&fit=crop&w=1400&q=80',
         altText: 'Sobrecamisa gris humo de lujo',
-        variantColor: 'Gris Humo',
-        isMain: false,
         productId: 8,
       },
     ],
@@ -541,7 +506,7 @@ export const MOCK_PRODUCTS: ProductWithRelations[] = [
     description:
       'Jersey de punto italiano con cuello alto limpio y tacto suave para una silueta moderna de invierno.',
     slug: 'jersey-cuello-alto-sculpt',
-    status: ProductStatus.ACTIVE,
+    isVisible: true,
     isNew: false,
     isOnSale: true,
     price: decimal('269.90'),
@@ -586,16 +551,12 @@ export const MOCK_PRODUCTS: ProductWithRelations[] = [
         id: 217,
         url: 'https://images.unsplash.com/photo-1434389677669-e08b4cac3105?auto=format&fit=crop&w=1400&q=80',
         altText: 'Jersey cuello alto color crema',
-        variantColor: 'Crema',
-        isMain: true,
         productId: 9,
       },
       {
         id: 218,
         url: 'https://images.unsplash.com/photo-1521223890158-f9f7c3d5d504?auto=format&fit=crop&w=1400&q=80',
         altText: 'Jersey cuello alto color carbon',
-        variantColor: 'Carbon',
-        isMain: false,
         productId: 9,
       },
     ],
@@ -606,7 +567,7 @@ export const MOCK_PRODUCTS: ProductWithRelations[] = [
     description:
       'Bomber premium con volumen controlado, cierre metalico y acabado tecnico para un estilo urbano de alto nivel.',
     slug: 'chaqueta-bomber-monolith',
-    status: ProductStatus.ACTIVE,
+    isVisible: true,
     isNew: false,
     isOnSale: false,
     price: decimal('489.90'),
@@ -651,16 +612,12 @@ export const MOCK_PRODUCTS: ProductWithRelations[] = [
         id: 219,
         url: 'https://images.unsplash.com/photo-1551488831-00ddcb6c6bd3?auto=format&fit=crop&w=1400&q=80',
         altText: 'Chaqueta bomber negra premium',
-        variantColor: 'Negro',
-        isMain: true,
         productId: 10,
       },
       {
         id: 220,
         url: 'https://images.unsplash.com/photo-1490578474895-699cd4e2cf59?auto=format&fit=crop&w=1400&q=80',
         altText: 'Chaqueta bomber plata mate',
-        variantColor: 'Plata Mate',
-        isMain: false,
         productId: 10,
       },
     ],

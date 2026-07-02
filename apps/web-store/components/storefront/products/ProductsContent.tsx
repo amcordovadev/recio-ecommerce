@@ -1,19 +1,39 @@
+// apps/web-store/components/storefront/products/ProductsContent.tsx
 'use client';
 
 import { useState, useEffect } from 'react';
 import { ProductCard } from '@/components/storefront/ProductCard';
 import { useProducts } from '@/hooks/use-products';
 import { SlidersHorizontal, ChevronDown } from 'lucide-react';
-import type { ProductWithRelations } from '@/mocks/products';
+import { ProductCardDto } from '@/types'; // Importamos tu nuevo contrato oficial
 
 export function ProductsContent() {
-  const [products, setProducts] = useState<ProductWithRelations[]>([]);
+  // El estado ahora está blindado usando únicamente el DTO oficial del catálogo
+  const [products, setProducts] = useState<ProductCardDto[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const { getProducts } = useProducts();
 
   useEffect(() => {
     getProducts().then((data) => {
-      setProducts(data);
+      // Adaptador: Transformamos los datos del mock viejo al nuevo DTO plano
+      const adaptedProducts: ProductCardDto[] = (data as any[]).map((p) => {
+        const mainImage = p.images?.find((img: any) => img.url);
+        const fallbackImage = p.images?.[0];
+
+        return {
+          id: p.id,
+          name: p.name,
+          slug: p.slug,
+          price: Number(p.price),
+          originalPrice: p.originalPrice ? Number(p.originalPrice) : null,
+          imageUrl: mainImage?.url ?? fallbackImage?.url ?? p.imageUrl ?? null,
+          isNew: !!p.isNew,
+          isOnSale: !!p.isOnSale,
+          categoryName: p.category?.name ?? 'Ropa',
+        };
+      });
+
+      setProducts(adaptedProducts);
       setIsLoading(false);
     });
   }, [getProducts]);

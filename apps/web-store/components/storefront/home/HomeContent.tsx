@@ -1,11 +1,11 @@
-// apps/web-store/components/home/HomeContent.tsx
+// apps/web-store/components/storefront/home/HomeContent.tsx
 'use client';
 
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { ProductCard } from '@/components/storefront/ProductCard';
 import { useProducts } from '@/hooks/use-products';
-import type { ProductWithRelations } from '@/mocks/products';
+import { ProductCardDto } from '@/types'; // Nuestro contrato limpio y oficial
 
 function ProductGridSkeleton() {
   return (
@@ -28,7 +28,8 @@ function ProductGridSkeleton() {
 
 export function HomeContent() {
   const { getProducts } = useProducts();
-  const [products, setProducts] = useState<ProductWithRelations[]>([]);
+  // El estado queda blindado usando únicamente el DTO oficial del catálogo
+  const [products, setProducts] = useState<ProductCardDto[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -38,7 +39,27 @@ export function HomeContent() {
     getProducts()
       .then((result) => {
         if (!isMounted) return;
-        setProducts(result);
+
+        // Forzamos el mapeo dinámico (as any[]) para evadir las restricciones del mock viejo
+        // y estructurar el objeto exactamente como lo exige el ProductCardDto
+        const adaptedProducts: ProductCardDto[] = (result as any[]).map((p) => {
+          const mainImage = p.images?.find((img: any) => img.url);
+          const fallbackImage = p.images?.[0];
+
+          return {
+            id: p.id,
+            name: p.name,
+            slug: p.slug,
+            price: Number(p.price),
+            originalPrice: p.originalPrice ? Number(p.originalPrice) : null,
+            imageUrl: mainImage?.url ?? fallbackImage?.url ?? p.imageUrl ?? null,
+            isNew: !!p.isNew,
+            isOnSale: !!p.isOnSale,
+            categoryName: p.category?.name ?? 'Ropa', // Si el mock no tiene el objeto, cae a 'Ropa'
+          };
+        });
+
+        setProducts(adaptedProducts);
       })
       .catch(() => {
         if (!isMounted) return;
